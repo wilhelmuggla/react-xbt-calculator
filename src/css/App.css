@@ -1,0 +1,140 @@
+:root {
+  --color-strong: #FFC300;
+  --color-stronger: #D4AC0D;
+  --color-light-gray: #F2F3F4;
+  --border-radius: 4px;
+}
+
+html, body {
+  background: var(--color-light-gray);
+  overflow: scroll;
+  overflow-x: hidden;
+
+}
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.navbar {
+  background: var(--color-strong);
+  margin: 10px 0;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+
+.navbar a {
+  color: black;
+}
+
+a {
+  color: var(--color-stronger);
+}
+
+a:hover {
+  color: var(--color-strong);
+}
+
+.navbar img {
+  max-height: 28px;
+  margin-right: 10px;
+}
+
+.cointainer {
+  background: #dff9fb;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+.historychart {
+  margin-bottom: 30px;
+}
+
+.chart-container {
+  width: 100%;
+  height: 350px;
+  background: white;
+}
+
+.historychart ul {
+  text-align: right;
+}
+
+.controlls {
+  margin-bottom: 30px;
+}
+
+li {
+  display: inline;
+  margin-left: 10px;
+  text-decoration: underline;
+  font-size: 17px;
+}
+
+#myChart {
+  background: white;
+  margin: 10px 0;
+  border-radius: 4px;
+  padding: 20px 10px;
+}
+
+.historychart li:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button {
+  background: var(--color-strong);
+  border-radius: var(--border-radius);
+  border: none;
+}
+
+.react-switch {
+  border: 1px solid var(--color-light-gray);
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.controlls button {
+  opacity: 0.3;
+  margin: 10px 10px;
+}
+
+.controlls button.selected {
+  opacity: 1;
+}
+
+.controlls button:hover {
+  opacity: .8;
+}
+
+h3 .price_big {
+  font-weight: 300;
+  font-size: 1.4rem;
+  margin: 0 1px;
+}
+
+h3 .show-profit {
+  font-size: 1.4rem;
+  margin-left: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+  .chart-container {
+    height: 300px;
+  }
+  h3 {
+    font-size: 1.4rem;
+  }
+  h3 .price_big {
+    font-weight: 300;
+    font-size: 1rem;
+    margin: 0 1px;
+  }
+  h3 .show-profit {
+    font-size: 1rem;
+    margin-left: 4px;
+  }
+}

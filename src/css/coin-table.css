@@ -1,0 +1,49 @@
+.coinlist-item img {
+    max-height: 30px;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.coinlist-item .percentage {
+    margin-right: 5px;
+}
+
+.coin-table, .coin-info-table {
+    background: #fff;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.coin-table .button {
+    float: right;
+}
+
+.coin-table .price {
+    text-align: center;
+}
+
+.coin-table td {
+    width: 33%;
+    margin: 10px;
+}
+
+.total-value {
+    padding: 10px;
+    width: 100%;
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+    margin-top: -15px;
+}
+
+.total-value .procentage {
+}
+
+@media screen and (max-width: 600px) {
+    .coinlist-item img {
+        max-height: 15px;
+        margin-right: 5px;
+    }
+    .coin-table table, .coin-info-table {
+        font-size: 10px;
+    }
+}
