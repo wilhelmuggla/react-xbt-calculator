@@ -27,15 +27,13 @@ export const getPortfolioChartData = async (watchList, timeframe) => {
     for (let y = 0; result.data.prices.length > y; y++) {
       let m = moment(result.data.prices[y][0]);
       let remainder = 15 - (m.minute() % 15);
-      let dateTime = moment(m)
-        .add(remainder, "minutes")
-        .format("YYYY-MM-DD HH:mm");
+      let dateTime = moment(m).startOf('hour').format("YYYY-MM-DD HH:mm");
       result.data.prices[y][0] = dateTime;
       result.data.prices[y][1] =
         watchList[x].value *
         getFairValue(result.data.prices[y][1], watchList[x].id, fx_rate);
     }
-    result.data.prices = removeDuplicates(result.data.prices, 0);
+   result.data.prices = removeDuplicates(result.data.prices, 0);
 
     prices.push({ price: result.data.prices, id: watchList[x].id });
   }
@@ -73,15 +71,16 @@ function mergeArrayObjects(prices) {
   }
   console.log(shortest);
 
-  for (let x = 1; shortest > x; x++) {
+  for (let x = 0; shortest > x; x++) {
     let timeportfoliovalue = 0;
     for (let y = 0; prices.length > y; y++) {
-      if (y < prices.length - 1) next = y + 1;
+      if (y < prices.length -1 ) next = y + 1;
       else next = 0;
 
       for (let z = 0; shortest > z; z++) {
         if (prices[y].price[x][0] == prices[next].price[z][0]) {
-          timeportfoliovalue += prices[y].price[z][1];
+          timeportfoliovalue += prices[next].price[z][1];
+          if(prices[next].price[z][1] === '') console.log(prices[next].price[z][0] + 'error');
         }
       }
     }
@@ -100,3 +99,17 @@ export const listCoins = (watchList) => {
   }
   return listCoins;
 };
+
+
+moment.fn.roundNext15Min = function () {
+    var intervals = Math.floor(this.minutes() / 15);
+    if(this.minutes() % 15 != 0)
+        intervals++;
+        if(intervals == 4) {
+            this.add('hours', 1);
+            intervals = 0;
+        }
+        this.minutes(intervals * 15);
+        this.seconds(0);
+        return this;
+    }
