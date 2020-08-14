@@ -114,13 +114,19 @@ li {
 
 h3 .price_big {
   font-weight: 300;
-  font-size: 1.4rem;
-  margin: 0 1px;
+  margin: 3px 0px 3px 5px;
 }
 
 h3 .show-profit {
   font-size: 1.4rem;
   margin-left: 4px;
+}
+
+h3 .profit {
+  font-weight: 500;
+
+} .display_price {
+  font-weight: 300;
 }
 
 @media only screen and (max-width: 600px) {

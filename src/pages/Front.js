@@ -16,7 +16,7 @@ import {
   formatProfit,
 } from "../components/Profit";
 import ProcentSwitch from "../components/ProcentSwitch";
-import {getExchangeRate} from "../apis/exchangeRateApi";
+import { getExchangeRate } from "../apis/exchangeRateApi";
 
 const Front = () => {
   const { watchList } = useContext(WatchListContext);
@@ -55,33 +55,37 @@ const Front = () => {
     });
   }, []);
 
- 
-    return (
-      <div>
-        <div className="container historychart">
-          <h3>
-            Portfolio {formatProfit(portfoliovalue)}
+  return (
+    <div>
+      <div className="container historychart">
+        <h3>
+          Portfolio<span class="price_big">{formatProfit(portfoliovalue)}</span>
+          <span className="profit">
             {displayProfit(showProcent, profit, portfoliovalue)}
-            <ProcentSwitch />
-          </h3>
-          <div className="chart-container">
-            <canvas id="myChart" ref={chartRef}>
-              loading
-            </canvas>
-          </div>
+          </span>
+          <ProcentSwitch />
+        </h3>
+        <div className="chart-container">
+          <canvas id="myChart" ref={chartRef}>
+            loading
+          </canvas>
         </div>
-        <div className="container">
-          <h3>Holdings</h3>
-          {coins === undefined || fxRate === undefined ? 'Loading...' : <CoinList
+      </div>
+      <div className="container">
+        <h3>Holdings</h3>
+        {coins === undefined || fxRate === undefined ? (
+          "Loading..."
+        ) : (
+          <CoinList
             coins={coins}
             profit={profit}
             fxRate={fxRate}
             portfoliovalue={portfoliovalue}
-          />}
-        </div>
+          />
+        )}
       </div>
-    );
-  
+    </div>
+  );
 };
 
 export default Front;
