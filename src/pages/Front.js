@@ -23,7 +23,6 @@ const Front = () => {
   const { showProcent, changeSetProcent } = useContext(ProcentContext);
 
   const chartRef = useRef();
-  let [isloaded, setisLoaded] = useState(false);
   let [portfoliovalue, setPortfolioValue] = useState();
   let [coins, setCoins] = useState();
   let [profit, setProfit] = useState();

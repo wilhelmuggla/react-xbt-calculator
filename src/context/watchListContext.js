@@ -5,7 +5,7 @@ export const WatchListContext = createContext();
 export const WatchListContextProvider = (props) => {
   const [watchList, setWatchList] = useState(
     useLocalStorage("watchList", [
-      { id: "bitcoin", name: "Bitecoin", short_name: "BTC", value: "" },
+      { id: "bitcoin", name: "Bitcoin", short_name: "BTC", value: "" },
       { id: "ethereum", name: "Ethereum", short_name: "ETH", value: "" },
       { id: "ripple", name: "XRP", short_name: "XRP", value: "" },
       { id: "litecoin", name: "Litecoin", short_name: "LTC", value: "" },

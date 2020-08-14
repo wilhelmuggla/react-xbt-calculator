@@ -1,0 +1,14 @@
+.settings .form-group {
+    margin-top: 30px;
+}
+
+.save_button {
+    margin-top: 30px;
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+    .settings .save_button {
+        width: 100%;
+    }
+}

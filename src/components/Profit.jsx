@@ -65,12 +65,15 @@ export const displayProfit = (
 };
 
 export const formatProfit = (profit, currency = "sek") => {
+  let round = 0;
+  if (profit < 1) round = 2;
+
   if (currency === "usd")
     return (
       <span className="price_big">
         <CurrencyFormat
           thousandSeparator={true}
-          value={Number(profit).toFixed(0)}
+          value={Number(profit).toFixed(round)}
           prefix={"$"}
           displayType={"text"}
         />
@@ -81,7 +84,7 @@ export const formatProfit = (profit, currency = "sek") => {
       <span className="price_big">
         <CurrencyFormat
           thousandSeparator={true}
-          value={Number(profit).toFixed(0)}
+          value={Number(profit).toFixed(round)}
           suffix={"kr"}
           displayType={"text"}
         />

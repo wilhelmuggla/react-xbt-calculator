@@ -9,11 +9,13 @@ html, body {
   background: var(--color-light-gray);
   overflow: scroll;
   overflow-x: hidden;
-
 }
+
 ::-webkit-scrollbar {
-  width: 0px;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
+  width: 0px;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
 }
 
 .navbar {
@@ -32,7 +34,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-strong);
+  opacity: 0.7;
 }
 
 .navbar img {
