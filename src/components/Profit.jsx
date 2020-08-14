@@ -1,9 +1,9 @@
 import React from "react";
 import * as fairValue from "./fairValue";
 import CurrencyFormat from "react-currency-format";
-import {getExchangeRate} from "../apis/exchangeRateApi";
+import { getExchangeRate } from "../apis/exchangeRateApi";
 
-export let getPortfolioProfit = async(coins, watchList, format = false) => {
+export let getPortfolioProfit = async (coins, watchList, format = false) => {
   let portfolio_value = 0;
   let portfolioProfit = 0;
   let fx_rate = await getExchangeRate("USD", "SEK");
@@ -11,7 +11,11 @@ export let getPortfolioProfit = async(coins, watchList, format = false) => {
   coins.map((coin, index) => {
     console.log(fx_rate);
 
-    const fairvalue = fairValue.getFairValue(coin.current_price, coin.id, fx_rate);
+    const fairvalue = fairValue.getFairValue(
+      coin.current_price,
+      coin.id,
+      fx_rate
+    );
     portfolio_value =
       portfolio_value +
       fairValue.coinPortfolioValue(fairvalue, watchList[index]["value"]);
@@ -31,7 +35,7 @@ export let getPortfolioProfit = async(coins, watchList, format = false) => {
         displayType={"text"}
       />
     );
-}
+};
 
 export const getPortfolioProfitProcent = (profit, portfolio_value) => {
   return Number((profit / portfolio_value) * 100).toFixed(2);
