@@ -70,7 +70,7 @@ export const formatProfit = (profit, currency = "sek") => {
       <span className="price_big">
         <CurrencyFormat
           thousandSeparator={true}
-          value={Number(profit).toFixed(2)}
+          value={Number(profit).toFixed(0)}
           prefix={"$"}
           displayType={"text"}
         />
@@ -81,7 +81,7 @@ export const formatProfit = (profit, currency = "sek") => {
       <span className="price_big">
         <CurrencyFormat
           thousandSeparator={true}
-          value={Number(profit).toFixed(2)}
+          value={Number(profit).toFixed(0)}
           suffix={"kr"}
           displayType={"text"}
         />
