@@ -17,6 +17,7 @@ import {
 } from "../components/Profit";
 import ProcentSwitch from "../components/ProcentSwitch";
 import { getExchangeRate } from "../apis/exchangeRateApi";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Front = () => {
   const { watchList } = useContext(WatchListContext);
@@ -28,6 +29,7 @@ const Front = () => {
   let [profit, setProfit] = useState();
   let [profitProcent, setProfitProcent] = useState();
   let [fxRate, setFxRate] = useState();
+  let [loading, isLoading] = useState(true);
 
   useEffect(() => {
     getExchangeRate("USD", "SEK").then((result) => {
@@ -35,7 +37,8 @@ const Front = () => {
     });
 
     getPortfolioChartData(watchList, 1).then((result) => {
-      chart.createChart(result, chartRef);
+      chart.createChart(result, chartRef)
+      isLoading(false);
     });
   }, []);
 
@@ -66,6 +69,15 @@ const Front = () => {
           <ProcentSwitch />
         </h3>
         <div className="chart-container">
+          {loading === true ? (
+            <div
+              className="CircularProgress"
+            >
+              <CircularProgress size={40} />
+            </div>
+          ) : (
+            ""
+          )}
           <canvas id="myChart" ref={chartRef}>
             loading
           </canvas>

@@ -6,7 +6,7 @@ import ProcentSwitch from "../components/ProcentSwitch";
 import { ProcentContext } from "../context/procentContext";
 import { displayProfit, formatProfit } from "../components/Profit";
 import CoinInfoTable from "../components/CoinInfoTable";
-
+import {CircularProgress} from '@material-ui/core'
 const CoinDetailPage = () => {
   const { id } = useParams();
   const chartRef = useRef();
@@ -72,6 +72,15 @@ const CoinDetailPage = () => {
           <ProcentSwitch />
         </h3>
         <div className="chart-container">
+        {isLoading === true ? (
+            <div
+              className="CircularProgress"
+            >
+              <CircularProgress size={40} />
+            </div>
+          ) : (
+            ""
+          )}
           <canvas id="myChart" ref={chartRef}>
             loading
           </canvas>

@@ -56,6 +56,7 @@ a:hover {
   width: 100%;
   height: 350px;
   background: white;
+  position: relative;
 }
 
 .historychart ul {
@@ -124,14 +125,30 @@ h3 .show-profit {
 
 h3 .profit {
   font-weight: 500;
+}
 
-} .display_price {
+.display_price {
   font-weight: 300;
+}
+
+.CircularProgress {
+  position: absolute;
+  margin-left: 50%;
+  left: -20px;
+  top: -20px;
+  margin-top: 175px;
+}
+
+.MuiCircularProgress-colorPrimary {
+  color: var(--color-strong) !important;
 }
 
 @media only screen and (max-width: 600px) {
   .chart-container {
     height: 300px;
+  }
+  .CircularProgress {
+    margin-top: 150px;
   }
   h3 {
     font-size: 1.4rem;
