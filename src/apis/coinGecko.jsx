@@ -3,6 +3,8 @@ import moment from "moment";
 import { getFairValue } from "../components/fairValue";
 import { getExchangeRate } from "./exchangeRateApi";
 
+//import "moment-round";
+
 export const getCoinPriceData = async (ids) => {
   return await coinGecko.get("/coins/markets", {
     params: {
@@ -15,10 +17,11 @@ export const getCoinPriceData = async (ids) => {
 export const getPortfolioChartData = async (watchList, timeframe) => {
   let prices = [];
   for (let x = 0; watchList.length > x; x++) {
+    if (watchList[x].value === 0 || watchList[x].value === "") continue;
     let result = await coinGecko.get(`/coins/${watchList[x].id}/market_chart`, {
       params: {
         vs_currency: "usd",
-        days: 1,
+        days: timeframe,
       },
     });
 
@@ -26,14 +29,25 @@ export const getPortfolioChartData = async (watchList, timeframe) => {
 
     for (let y = 0; result.data.prices.length > y; y++) {
       let m = moment(result.data.prices[y][0]);
-      let remainder = 15 - (m.minute() % 15);
-      let dateTime = moment(m).startOf('hour').format("YYYY-MM-DD HH:mm");
+      let remainder = 120 - (m.minute() % 120);
+      //m.hours();
+      //moment.relativeTimeThreshold('h', 4);
+
+      if (timeframe === 30) {
+        m.startOf("day");
+      } else if (timeframe === 7) {
+        m.startOf("day");
+      } else if (timeframe === 1) { 
+        m.startOf("hour");
+      }
+      const dateTime = m.format("YYYY-MM-DD HH:mm");
+      //let dateTime = moment(m).startOf('hour').format("YYYY-MM-DD HH:mm");
       result.data.prices[y][0] = dateTime;
       result.data.prices[y][1] =
         watchList[x].value *
         getFairValue(result.data.prices[y][1], watchList[x].id, fx_rate);
     }
-   result.data.prices = removeDuplicates(result.data.prices, 0);
+    result.data.prices = removeDuplicates(result.data.prices, 0);
 
     prices.push({ price: result.data.prices, id: watchList[x].id });
   }
@@ -74,14 +88,16 @@ function mergeArrayObjects(prices) {
   for (let x = 0; shortest > x; x++) {
     let timeportfoliovalue = 0;
     for (let y = 0; prices.length > y; y++) {
-      if (y < prices.length -1 ) next = y + 1;
+      if (y < prices.length - 1) next = y + 1;
       else next = 0;
 
       for (let z = 0; shortest > z; z++) {
+        let found = 0;
         if (prices[y].price[x][0] == prices[next].price[z][0]) {
+          found = 1;
           timeportfoliovalue += prices[next].price[z][1];
-          if(prices[next].price[z][1] === '') console.log(prices[next].price[z][0] + 'error');
         }
+       
       }
     }
     portfoliotime.push({
@@ -100,16 +116,14 @@ export const listCoins = (watchList) => {
   return listCoins;
 };
 
-
 moment.fn.roundNext15Min = function () {
-    var intervals = Math.floor(this.minutes() / 15);
-    if(this.minutes() % 15 != 0)
-        intervals++;
-        if(intervals == 4) {
-            this.add('hours', 1);
-            intervals = 0;
-        }
-        this.minutes(intervals * 15);
-        this.seconds(0);
-        return this;
-    }
+  var intervals = Math.floor(this.minutes() / 15);
+  if (this.minutes() % 15 != 0) intervals++;
+  if (intervals == 4) {
+    this.add("hours", 1);
+    intervals = 0;
+  }
+  this.minutes(intervals * 15);
+  this.seconds(0);
+  return this;
+};

@@ -6,7 +6,9 @@ import ProcentSwitch from "../components/ProcentSwitch";
 import { ProcentContext } from "../context/procentContext";
 import { displayProfit, formatProfit } from "../components/Profit";
 import CoinInfoTable from "../components/CoinInfoTable";
-import {CircularProgress} from '@material-ui/core'
+import { CircularProgress } from "@material-ui/core";
+import { WatchListContext } from "../context/watchListContext";
+import ChartControlls from "../components/ChartControlls";
 const CoinDetailPage = () => {
   const { id } = useParams();
   const chartRef = useRef();
@@ -15,6 +17,7 @@ const CoinDetailPage = () => {
   let [timeFrame, setTimeFrame] = useState(1);
   let [chart, setChart] = useState();
   const { showProcent } = useContext(ProcentContext);
+  const { watchList } = useContext(WatchListContext);
 
   //fetch data from api
   const fetchData = async () => {
@@ -72,10 +75,8 @@ const CoinDetailPage = () => {
           <ProcentSwitch />
         </h3>
         <div className="chart-container">
-        {isLoading === true ? (
-            <div
-              className="CircularProgress"
-            >
+          {isLoading === true ? (
+            <div className="CircularProgress">
               <CircularProgress size={40} />
             </div>
           ) : (
@@ -85,37 +86,15 @@ const CoinDetailPage = () => {
             loading
           </canvas>
         </div>
-        <div class="row controlls">
-          <div className="col-6 d-flex">
-            <button
-              className={timeFrame == 1 ? "selected button" : "button"}
-              onClick={() => setTimeFrame(1)}
-            >
-              1d
-            </button>
-            <button
-              className={timeFrame == 7 ? "selected button" : "button"}
-              onClick={() => setTimeFrame(7)}
-            >
-              1w
-            </button>
-            <button
-              className={timeFrame == 30 ? "selected button" : "button"}
-              onClick={() => setTimeFrame(30)}
-            >
-              1m
-            </button>
-            <button
-              className={timeFrame == 365 ? "selected button" : "button"}
-              onClick={() => setTimeFrame(365)}
-            >
-              1y
-            </button>
-          </div>
-        </div>
+        <ChartControlls
+          chart={chart}
+          watchList={watchList}
+          id={id}
+          isLoading={setIsLoading}
+        />
 
         <h3>{isLoading ? "" : coinData[0].name} Statistics</h3>
-        {isLoading ? '' : <CoinInfoTable coinData={coinData} />}
+        {isLoading ? "" : <CoinInfoTable coinData={coinData} />}
       </div>
     );
   };

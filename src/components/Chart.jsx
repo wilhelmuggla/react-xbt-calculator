@@ -1,7 +1,7 @@
 import ChartJS from "chart.js";
 
 export function createChart(data, chartRef) {
-    console.log(data);
+  console.log(data);
   return new ChartJS(chartRef.current, {
     type: "line",
     data: {
@@ -22,11 +22,14 @@ export function createChart(data, chartRef) {
           {
             type: "time",
             distribution: "linear",
+            unitStepSize: 1,
             time: {
               displayFormats: {
                 second: "YYYY-MM-DD H:mm",
-                hour: "H:mm",
-                day: "d",
+                hour: "HH:mm",
+                day: "MMM DD",
+                week: "MMM DD",
+                month: "MMM DD",
               },
             },
           },
