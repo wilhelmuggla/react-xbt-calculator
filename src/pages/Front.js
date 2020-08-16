@@ -18,7 +18,7 @@ import {
 import ProcentSwitch from "../components/ProcentSwitch";
 import { getExchangeRate } from "../apis/exchangeRateApi";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import ChartControlls from "../components/chartControlls";
+import ChartControlls from "../components/ChartControlls";
 
 const Front = () => {
   const { watchList } = useContext(WatchListContext);

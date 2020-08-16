@@ -5,7 +5,6 @@ import { coinGecko, getPortfolioChartData } from "../apis/coinGecko";
 
 const ChartControlls = (props) => {
   const [timeFrame, setTimeFrame] = useState(1);
-  const isInitialMount = useRef(true);
   const isInitialMountUpdate = useRef(true);
   const isInitialMountReload = useRef(true);
 
@@ -54,19 +53,19 @@ const ChartControlls = (props) => {
     <div class="row controlls">
       <div className="col-8 d-flex">
         <button
-          className={timeFrame == 1 ? "selected button" : "button"}
+          className={timeFrame === 1 ? "selected button" : "button"}
           onClick={() => setTimeFrame(1)}
         >
           1d
         </button>
         <button
-          className={timeFrame == 7 ? "selected button" : "button"}
+          className={timeFrame === 7 ? "selected button" : "button"}
           onClick={() => setTimeFrame(7)}
         >
           1w
         </button>
         <button
-          className={timeFrame == 30 ? "selected button" : "button"}
+          className={timeFrame === 30 ? "selected button" : "button"}
           onClick={() => setTimeFrame(30)}
         >
           1m
@@ -74,7 +73,7 @@ const ChartControlls = (props) => {
 
         {props.id !== "portfolio" ? (
           <button
-            className={timeFrame == 365 ? "selected button" : "button"}
+            className={timeFrame === 365 ? "selected button" : "button"}
             onClick={() => setTimeFrame(365)}
           >
             1y
