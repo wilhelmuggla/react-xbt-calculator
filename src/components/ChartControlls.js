@@ -33,11 +33,8 @@ const ChartControlls = (props) => {
         let end = moment();
 
         //Difference in number of days
-        days = end.diff(start, 'days');
-        console.log(start);
-        console.log(end);
-        console.log(days);
-
+        days = end.diff(start, 'days') + 1;
+    
       }
 
       //portfolio page

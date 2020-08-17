@@ -10,10 +10,13 @@ export function createChart(data, chartRef) {
           data: data,
           backgroundColor: "rgba(255, 190, 0, 0.4)",
           borderColor: "rgba(255, 190, 0, 0.8)",
+          pointRadius: 0,
+          pointHoverRadius: 0,
         },
       ],
     },
     options: {
+      lineTension: 3,
       legend: {
         display: false,
       },
@@ -29,7 +32,7 @@ export function createChart(data, chartRef) {
                 hour: "HH:mm",
                 day: "MMM DD",
                 week: "MMM DD",
-                month: "MMM DD",
+                month: "D/M",
               },
             },
           },
