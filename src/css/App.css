@@ -109,6 +109,7 @@ li {
 } .controlls button.reload-button {
   opacity: 1;
   float:right;
+  background: #fff;
 }
 
 .controlls button.selected {
@@ -150,6 +151,9 @@ h3 .profit {
 }
 
 @media only screen and (max-width: 600px) {
+  .navbar, .controlls {
+    margin-bottom: 25px;
+  }
   .chart-container {
     height: 300px;
   }
