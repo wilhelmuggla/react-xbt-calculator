@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import CachedIcon from "@material-ui/icons/Cached";
 import { updateChart, formatChartData } from "./Chart";
 import { coinGecko, getPortfolioChartData } from "../apis/coinGecko";
+import moment from "moment";
 
 const ChartControlls = (props) => {
   const [timeFrame, setTimeFrame] = useState(1);
@@ -10,11 +11,11 @@ const ChartControlls = (props) => {
 
   const [reload, setReload] = useState();
 
-  const fetchData = async () => {
+  const fetchData = async (days) => {
     return await coinGecko.get(`/coins/bitcoin/market_chart`, {
       params: {
         vs_currency: "usd",
-        days: timeFrame,
+        days: days,
       },
     });
   };
@@ -22,20 +23,33 @@ const ChartControlls = (props) => {
   useEffect(() => {
     //do not update on load
     if (isInitialMountUpdate.current) {
-        isInitialMountUpdate.current = false;
+      isInitialMountUpdate.current = false;
     } else {
       props.isLoading(true);
+      let days = timeFrame;
+
+      if (timeFrame === "ytd") {
+        let start = moment().startOf("year");
+        let end = moment();
+
+        //Difference in number of days
+        days = end.diff(start, 'days');
+        console.log(start);
+        console.log(end);
+        console.log(days);
+
+      }
 
       //portfolio page
       if (props.id === "portfolio") {
-        getPortfolioChartData(props.watchList, timeFrame).then((result) => {
+        getPortfolioChartData(props.watchList, days).then((result) => {
           updateChart(result, props.chart);
           props.isLoading(false);
         });
       }
       //coin page
       else {
-        fetchData().then((result) => {
+        fetchData(days).then((result) => {
           updateChart(formatChartData(result.data.prices), props.chart);
           props.isLoading(false);
         });
@@ -45,7 +59,7 @@ const ChartControlls = (props) => {
 
   useEffect(() => {
     if (isInitialMountReload.current) {
-        isInitialMountReload.current = false;
+      isInitialMountReload.current = false;
     } else window.location.reload();
   }, [reload]);
 
@@ -56,36 +70,33 @@ const ChartControlls = (props) => {
           className={timeFrame === 1 ? "selected button" : "button"}
           onClick={() => setTimeFrame(1)}
         >
-          1d
+          1D
         </button>
         <button
           className={timeFrame === 7 ? "selected button" : "button"}
           onClick={() => setTimeFrame(7)}
         >
-          1w
+          1W
         </button>
         <button
           className={timeFrame === 30 ? "selected button" : "button"}
           onClick={() => setTimeFrame(30)}
         >
-          1m
+          1M
         </button>
-
-        {props.id !== "portfolio" ? (
-          <button
-            className={timeFrame === 365 ? "selected button" : "button"}
-            onClick={() => setTimeFrame(365)}
-          >
-            1y
-          </button>
-        ) : (
-          ""
-        )}
+        <button
+          className={timeFrame === "ytd" ? "selected button" : "button"}
+          onClick={() => setTimeFrame("ytd")}
+        >
+          YTD
+        </button>
+        
       </div>
       <div className="col-4">
-       <button className="button reload-button"> <CachedIcon
-          onClick={() => setReload(reload + 1)}
-        /></button>
+        <button className="button reload-button">
+          {" "}
+          <CachedIcon onClick={() => setReload(reload + 1)} />
+        </button>
       </div>
     </div>
   );

@@ -22,13 +22,13 @@ import ChartControlls from "../components/ChartControlls";
 
 const Front = () => {
   const { watchList } = useContext(WatchListContext);
-  const { showProcent, changeSetProcent } = useContext(ProcentContext);
+  const { showProcent} = useContext(ProcentContext);
 
   const chartRef = useRef();
   let [portfoliovalue, setPortfolioValue] = useState();
   let [coins, setCoins] = useState();
   let [profit, setProfit] = useState();
-  let [profitProcent, setProfitProcent] = useState();
+  //let [profitProcent, setProfitProcent] = useState();
   let [fxRate, setFxRate] = useState();
   let [loading, isLoading] = useState(true);
   const [chartobj, setChart] = useState();
@@ -45,7 +45,7 @@ const Front = () => {
   }, []);
 
   useEffect(() => {
-    portfolioValue(watchList, false).then((result) => {
+    portfolioValue(watchList, false, "23-03-2020").then((result) => {
       setPortfolioValue(result);
     });
   }, []);
@@ -56,7 +56,7 @@ const Front = () => {
       getPortfolioProfit(result.data, watchList).then((result2) => {
         setProfit(result2);
       });
-      setProfitProcent(getPortfolioProfitProcent(portfoliovalue, result.data));
+     // setProfitProcent(getPortfolioProfitProcent(portfoliovalue, result.data));
     });
   }, []);
 

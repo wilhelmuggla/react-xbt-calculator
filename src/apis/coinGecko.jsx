@@ -33,11 +33,11 @@ export const getPortfolioChartData = async (watchList, timeframe) => {
       //m.hours();
       //moment.relativeTimeThreshold('h', 4);
 
-      if (timeframe === 30) {
+      if (timeframe > 30) {
         m.startOf("day");
-      } else if (timeframe === 7) {
+      } else if (timeframe >= 7) {
         m.startOf("day");
-      } else if (timeframe === 1) { 
+      } else if (timeframe >= 1) { 
         m.startOf("hour");
       }
       const dateTime = m.format("YYYY-MM-DD HH:mm");

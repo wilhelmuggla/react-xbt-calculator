@@ -16,7 +16,7 @@ const CoinList = (props) => {
   let portfolio_profit = 0;
 
   useEffect(() => {
-    fairValue.portfolioValue(watchList).then((result) => {
+    fairValue.portfolioValue(watchList, true).then((result) => {
       setPortfolioValue(result);
     });
   }, []);
@@ -65,11 +65,11 @@ const CoinList = (props) => {
         </table>
 
         <div className="total-value">
-         <b> Total value:</b> {formatProfit(portfolioValue)}
+         <b> Total value:</b> {formatProfit(props.portfoliovalue)}
           <span
             className={portfolio_profit >= 0 ? "text-success" : "text-danger"}
           >
-            {displayProfit(showProcent, portfolio_profit, portfolioValue)}
+            {displayProfit(showProcent, portfolio_profit, props.portfoliovalue)}
           </span>
         </div>
       </div>
